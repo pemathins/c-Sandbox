@@ -15,5 +15,5 @@ public:
 };
 
 int main() {
-    Test{42};
+    Test{32};
 }
