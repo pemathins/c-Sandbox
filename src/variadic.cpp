@@ -2,20 +2,25 @@
 
 struct Test 
 {
-private:
-    int i;
-    template<typename... T,typename N>
-    void printValue(T... t) { std::cout << std::get<N>(t...) <<"\n";}
-public:
-    template<typename ... T>
-    Test(T&& ... x)
-    {
-        printValue(x...);
+    template<typename first>
+    auto printValue(first f)
+    { 
+        std::cout << f <<"\n";
     }
-    int fptr = [](int i){ std::cout << i*i; return i*i; }(i);
-    
+    template<typename first,typename... T>
+    auto printValue(first f,T... t)
+    { 
+        std::cout << f <<"\n";
+        printValue(t...);
+    }
+
+    template<typename... T>
+    Test(T&&... t)
+    {
+        printValue(t...);
+    }    
 };
 
 int main() {
-    Test{32 ,56 ,23.2f};
+    Test{32, 56, 45.4f, 23};
 }
