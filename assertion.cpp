@@ -13,4 +13,4 @@ int main() {
     Add x;
     static_assert(x.add(12 ,21)<=45 && "Case failed in runtime");
     assert(x.add(test1,test2)<=45 && "Didn't make through"); 
-}
+} 
