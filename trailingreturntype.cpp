@@ -7,8 +7,8 @@ struct Test {
     bool t2;
     int32_t x2;
     std::vector<int> function(std::vector<int>& vec1) {
-        
-        return std::sort(vec1.begin(), vec1.end());
+        std::sort(vec1.begin(), vec1.end());
+        return vec1;
     }
 };
 
