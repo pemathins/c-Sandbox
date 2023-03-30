@@ -9,7 +9,7 @@ int main()
         std::cout << "cannt write int test \n";
         return 1;
     }
-    
+
     out << "pema " << 8.5 << std::endl;
     out << "akash " << 7.9 << std::endl;
     out << "mausam " << 8.2 << std::endl;
@@ -26,6 +26,10 @@ int main()
     }
     char buffer[35];
     float cgpa;
+
+    /* this does nto read all the words rather it escapes or stops reading in the next whitespace or a spaces 
+    /* it does not read pema thinley lepcha as a whole rather the first name only pema << are overloaded in such a way the it
+    /* reades only contineous characters and ens reading in a first space */
 
     in >> buffer >> cgpa;
     std::cout << buffer<< " " << cgpa << "\n";
