@@ -10,7 +10,7 @@ int main()
         return 1;
     }
 
-    out << "pema " << 8.5 << std::endl;
+    out << "pema " << 6.5 << std::endl;
     out << "akash " << 7.9 << std::endl;
     out << "mausam " << 8.2 << std::endl;
     out << "roktim " << 7.1 << std::endl;
