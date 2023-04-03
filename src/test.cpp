@@ -1,18 +1,19 @@
-// #include <iostream>
-// #include <vector>
-// #include <algorithm>
+#include <iostream>
+#include <vector>
 
-// struct Test {
-//     int x;
-//     Test(int t)
-//         :x(t)
-//     {
-//     }
+#ifndef _test
+#ifdef _test
+#endif
+#endif
 
-//     int t = [](int n) -> int { std::cout << "call :" << n << "\n"; n++; return n; }(x);
-// };
+struct vest
+{
+    float mest;
+    std::string trt=NULL;
+};
+int main() 
+{
+    int32_t c = 32;
+    std::string tree = "Trespasses";
+}
 
-// int main() {
-//     Test test = Test(12);
-//     std::cout << test.t;
-// }
