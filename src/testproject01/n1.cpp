@@ -5,7 +5,7 @@
 
 namespace access
 {
-    static int count=0;
+    static int count=1;
     static int16_t TOKEN=0;
     std::string tokenGenerator()
     {
@@ -16,33 +16,33 @@ namespace access
 typedef struct UserInfo
 
 {
+    std::string token;
     std::string first_name;
     std::string middle_name;
     std::string last_name;
     std::string e_mail;
     std::string date_of_Birth;
-    UserInfo(std::string& fname, std::string& mname, std::string& lname, std::string& email, std::string& dob) 
-        :first_name(fname), middle_name(mname), last_name(lname), e_mail(email) ,date_of_Birth(dob)
+    UserInfo(std::string& tkn, std::string& fname, std::string& mname, std::string& lname, std::string& email, std::string& dob) 
+        :token(tkn), first_name(fname), middle_name(mname), last_name(lname), e_mail(email) ,date_of_Birth(dob)
     {
-        person::counter++;
+        access::count++;
+        access::TOKEN ++;
     }
 
 };
 
 namespace person 
-
 {
-    static int counter = 0;
     class Register
     {
         
         public:
-        void person(std::vector<UserInfo>& people)
+        UserInfo person(std::string token)
         {
             std::string fname,mname,lname,email,dob;
             std::cout << "\nEnter your first name : ";
 
-            std::cin >> fname >> mname >> lname >> email >> dob;
+            std::cin >> fname;
             std::cout << "\nEnter your middle name : ";
             std::cin >> mname;
             std::cout << "\nEnter your last name : ";
@@ -51,8 +51,8 @@ namespace person
             std::cin >> email;
             std::cout << "\nEnter your date of birth : ";
             std::cin >> dob;
-            UserInfo person{fname,mname,lname,email,dob};
-
+            UserInfo person{token,fname,mname,lname,email,dob};
+            return person;
          
         }
     };
@@ -71,20 +71,35 @@ int main()
 
 
 
-    std::vector<person::Register> user;
+    std::vector<UserInfo> userRegister;
+    person::Register info;
+    
     do {
         std::cout << "Enter your choice :-";
         std::cin >> a;
         switch(a)
         {
-            case 1:
-                std::string token=access::tokenGenerator();
-                user.push_back(token); 
-                access::TOKEN += 1;
+            case 1: 
+            {
                 std::cout << "_____________________________________________\n";
                 std::cout << "|                                            |\n";
                 std::cout << "|-----------------register-------------------|\n";
                 std::cout << "|____________________________________________|\n";
+
+                std::string token = access::tokenGenerator();
+                UserInfo value = info.person(token);
+                userRegister.push_back(value); 
+                break;
+            }
+                
+            case 2:
+                break;
+            case 3:
+                break;
+            case 4:
+                break;
+            default:
+                break;
 
         }
     }while(a!=4); 
