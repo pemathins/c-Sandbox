@@ -1,9 +1,10 @@
 #include <iostream>
 #include <variant>
 
-typedef 1231 XPEX;
+typedef  int XPEX1231;
 typedef double XVALX;
 
 int main()
 {
   
+}
