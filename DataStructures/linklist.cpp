@@ -8,14 +8,13 @@ namespace ca
     {
         struct node
         {
-            T* PreviousPtr;
             T Value;
             T* NextPtr;
         };
         
         mutable int counter=0;
-        node * startNode null;
-        node * last;
+        node * startNode = null;
+        node * last = null;
         int capicity() const
         {
             return max_size;
@@ -31,7 +30,7 @@ namespace ca
 
         bool add(const T& V)
         {
-            node.previousPtr = startNode;
+            node    
             node.value = V;
             node.NextPtr = startNode;
             startNode = node;
@@ -39,10 +38,6 @@ namespace ca
             return true;
         }
         T item(int const& index){
-            if(index <= max_size AND index > 0)
-                return arraylist[index];
-            else
-                throw "error";
         }
 
     };
@@ -55,5 +50,4 @@ int main()
     newlist.add(43);
     newlist.add(41);
     newlist.add(42);
-    std::cout << newlist.item(0);
 }
