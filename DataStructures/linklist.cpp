@@ -4,16 +4,18 @@
 namespace ca
 {   
     template<typename T>
-    struct arraylist
+    struct linklist
     {
-        struct linklist
+        struct node
         {
             T* PreviousPtr;
             T Value;
             T* NextPtr;
         };
         
-        mutable int counter;
+        mutable int counter=0;
+        node * startNode null;
+        node * last;
         int capicity() const
         {
             return max_size;
@@ -26,12 +28,14 @@ namespace ca
             else 
                 return false;
         }
-        T array[max_size];
 
         bool add(const T& V)
         {
-            pointer++;
-            arraylist[pointer] = V;
+            node.previousPtr = startNode;
+            node.value = V;
+            node.NextPtr = startNode;
+            startNode = node;
+            counter++;
             return true;
         }
         T item(int const& index){
@@ -46,7 +50,7 @@ namespace ca
 
 int main() 
 {
-    ca::arraylist<int> newlist;
+    ca::linklist<int> newlist;
     newlist.add(45);
     newlist.add(43);
     newlist.add(41);
