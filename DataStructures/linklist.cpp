@@ -9,40 +9,42 @@ namespace ca
         struct node
         {
             T Value;
-            T* NextPtr;
+            node * Nextadd;
         };
         
         mutable int counter=0;
-        node * startNode = null;
-        node * last = null;
+        node * startNode;
+        node * first;
+        node * last;
         int capicity() const
         {
-            return max_size;
+            return counter;
         }
+
         bool reserve(int&& size)
         {
-            if(max_size < size)
-                T newlist[size] = new t[size];
-                return true;
-            else 
-                return false;
+            return true;
         }
 
         bool add(const T& V)
         {
-            last = (struct node*)malloc(1*sizeof(struct node))
-            node.value = V;
-            node.NextPtr = startNode;
-            if(count == 0)
-                startNode = last;
+            first = (struct node*)malloc(1*sizeof(struct node));
+            last = (struct node*)malloc(1*sizeof(struct node));
+            first->Value = V;
+            first->Nextadd = last;
+            if(counter == 0)
+                startNode = first;
             counter++;
             return true;
         }
-        T item(int const& index){
+        T item(int const& index)
+        {
         }
         ~linklist()
         {
-            free(struct node)
+            /*free the struct
+
+            */
         }
 
     };
