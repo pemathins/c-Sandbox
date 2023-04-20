@@ -39,6 +39,12 @@ namespace ca
         }
         T item(int const& index)
         {
+            while(!(index-1))
+            {
+                node * ptr = first->Nextadd;
+                first = last;
+            }
+            return first->Value;
         }
         ~linklist()
         {
@@ -57,4 +63,9 @@ int main()
     newlist.add(43);
     newlist.add(41);
     newlist.add(42);
+    for(int i=0;i<4;i++)
+    {
+        std::cout << newlist.item(i);
+    }
+      
 }
