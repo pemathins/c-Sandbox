@@ -30,14 +30,19 @@ namespace ca
 
         bool add(const T& V)
         {
-            node    
+            last = (struct node*)malloc(1*sizeof(struct node))
             node.value = V;
             node.NextPtr = startNode;
-            startNode = node;
+            if(count == 0)
+                startNode = last;
             counter++;
             return true;
         }
         T item(int const& index){
+        }
+        ~linklist()
+        {
+            free(struct node)
         }
 
     };
