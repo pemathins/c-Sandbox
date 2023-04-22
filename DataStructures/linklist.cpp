@@ -6,95 +6,97 @@ namespace ca
     template<typename T>
     struct linklist
     {
-        struct node
-        {
-            T Value;
-            node* Nextadd;
-        };
-        
-        mutable int counter=0, traverserCounter=0, counterSet=0;
-        static int nodeSize=0;
-        node* startNode;
-        node* currentNode = NULL;
+        private:
+            struct node
+            {
+                T Value;
+                node* Nextadd;
+            };
 
-        node* nodeTraverser(node* nodePointer,int m_counter)
-        {
-            node*m_traverse = nodePointer;
-            if(nodeSize == 0)
-                counterSet=0;
-                return 0;
+        public:
+            mutable int counter=0, traverserCounter=0, counterSet=0;
+            int nodeSize=0;
+            node* startNode;
+            node* currentNode = NULL;
 
-            if(m_traverse->Nextadd == 0)
-                counterSet=0;
-                return m_traverse;
+            node* nodeTraverser(node* nodePointer,int m_counter)
+            {
+                node*m_traverse = nodePointer;
+                if(nodeSize == 0)
+                    counterSet=0;
+                    return 0;
 
-            counterSet++;
-            nodeTraverser(m_traverse->Nextadd,counterSet);
-        }
+                if(m_traverse->Nextadd == 0)
+                    counterSet=0;
+                    return m_traverse;
 
-        T nodeTraverserPrint(node* nodePointer,const int& m_count,int printTraverser)
-        {
-            if(nodeSize==printTraverser)
-                return 0;
-                
-            node* traverser = nodePointer;
-
-            std::cout << "m_count == "<< m_count << " PrintTrav == " << printTraverser;
-
-            if(m_count==printTraverser){
-                printTraverser=0;
-                return traverser->Value;
+                counterSet++;
+                nodeTraverser(m_traverse->Nextadd,counterSet);
             }
 
-            printTraverser++;
-            nodeTraverserPrint(traverser->Nextadd,m_count,printTraverser);
-        }
+            T nodeTraverserPrint(node* nodePointer,const int& m_count,int printTraverser)
+            {
+                if(nodeSize==printTraverser)
+                    return 0;
+                    
+                node* traverser = nodePointer;
 
-        int size() const
-        {
-            return nodeSize;
-        }
+                std::cout << "m_count == "<< m_count << " PrintTrav == " << printTraverser;
 
-        bool reserve(int&& size)
-        {
-            return true;
-        }
-            /* Add function to create node form scratch
-            */
-        bool add(const T& V)
-        {
-                // Asign new memory in the buffer
-            node* createdNode = (struct node*)malloc(1*sizeof(struct node));
+                if(m_count==printTraverser){
+                    printTraverser=0;
+                    return traverser->Value;
+                }
 
-                // First Node initilization
-            if(nodeSize == 0)
-                startNode = createdNode;
+                printTraverser++;
+                nodeTraverserPrint(traverser->Nextadd,m_count,printTraverser);
+            }
 
-                // Assign values to the new node created
-            createdNode->Value = V;
-            createdNode->Nextadd = nodeTraverser(startNode,counter);
+            int size() const
+            {
+                return nodeSize;
+            }
 
-                // increment node size
-            nodeSize++;
-            
-            currentNode = createdNode;
+            bool reserve(int&& size)
+            {
+                return true;
+            }
+                /* Add function to create node form scratch
+                */
+            bool add(const T& V)
+            {
+                    // Asign new memory in the buffer
+                node* createdNode = (struct node*)malloc(1*sizeof(struct node));
 
-            return true;
-        }
+                    // First Node initilization
+                if(nodeSize == 0)
+                    startNode = createdNode;
 
-        T item(int const& index)
-        {
-            // node* current = nodeTraverser(startNode,index);
-            int x,printTraverser=0;
-             return nodeTraverserPrint(startNode,index,printTraverser);
-        }
+                    // Assign values to the new node created
+                createdNode->Value = V;
+                createdNode->Nextadd = nodeTraverser(startNode,counter);
 
-        ~linklist()
-        {
-            /*free the struct
+                    // increment node size
+                nodeSize++;
+                
+                currentNode = createdNode;
 
-            */
-        }
+                return true;
+            }
+
+            T item(int const& index)
+            {
+                // node* current = nodeTraverser(startNode,index);
+                int x,printTraverser=0;
+                return nodeTraverserPrint(startNode,index,printTraverser);
+            }
+
+            ~linklist()
+            {
+                /*free the struct
+
+                */
+            }
 
     };
 }
