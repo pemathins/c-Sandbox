@@ -12,8 +12,8 @@ namespace ca
             node* Nextadd;
         };
         
-        mutable int nodeSize=0, counter=0, traverserCounter=0, counterSet=0;
-        int printTraverser = 0;
+        mutable int counter=0, traverserCounter=0, counterSet=0;
+        static int nodeSize=0;
         node* startNode;
         node* currentNode = NULL;
 
@@ -32,18 +32,22 @@ namespace ca
             nodeTraverser(m_traverse->Nextadd,counterSet);
         }
 
-        T nodeTraverserPrint(node* nodePointer,int m_count)
+        T nodeTraverserPrint(node* nodePointer,const int& m_count,int printTraverser)
         {
-            if(nodeSize == printTraverser)
+            if(nodeSize==printTraverser)
                 return 0;
                 
             node* traverser = nodePointer;
-            if(printTraverser == m_count)
+
+            std::cout << "m_count == "<< m_count << " PrintTrav == " << printTraverser;
+
+            if(m_count==printTraverser){
                 printTraverser=0;
                 return traverser->Value;
-            
+            }
+
             printTraverser++;
-            nodeTraverserPrint(traverser->Nextadd,m_count);
+            nodeTraverserPrint(traverser->Nextadd,m_count,printTraverser);
         }
 
         int size() const
@@ -78,11 +82,11 @@ namespace ca
             return true;
         }
 
-        void item(int const& index)
+        T item(int const& index)
         {
             // node* current = nodeTraverser(startNode,index);
-            nodeTraverserPrint(startNode,index);
-            counterSet=0;
+            int x,printTraverser=0;
+             return nodeTraverserPrint(startNode,index,printTraverser);
         }
 
         ~linklist()
@@ -104,8 +108,8 @@ int main()
     newlist.add(44);
     newlist.add(45);
     newlist.add(46);
-    
-    std::cout << newlist.item(5);
+    int x = newlist.item(5);
+    std::cout << x;
     // for(int i=0;i<4;i++)
     // {
     //     std::cout << newlist.item(i);
