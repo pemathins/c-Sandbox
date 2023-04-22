@@ -12,56 +12,69 @@ namespace ca
             node* Nextadd;
         };
         
-        mutable int counter=0,traverserCounter=0,counterSet=0;
+        mutable int nodeSize=0, counter=0, traverserCounter=0, counterSet=0;
+        int printTraverser = 0;
         node* startNode;
-        node* first;
         node* currentNode = NULL;
 
         node* nodeTraverser(node* nodePointer,int m_counter)
         {
-            node* traverse = nodePointer;
-            std::cout << traverse->Value << "\n";
-            if(traverse == first)
+            node*m_traverse = nodePointer;
+            if(nodeSize == 0)
+                counterSet=0;
                 return 0;
-            if(traverse->Nextadd == (std::nullptr_t)nullptr)
-                return traverse;
+
+            if(m_traverse->Nextadd == 0)
+                counterSet=0;
+                return m_traverse;
+
             counterSet++;
-            nodeTraverser(traverse->Nextadd,counterSet);
+            nodeTraverser(m_traverse->Nextadd,counterSet);
         }
 
-        int nodeTraverserPrint(node* nodePointer,int m_count)
+        T nodeTraverserPrint(node* nodePointer,int m_count)
         {
-            if(m_count == counterSet)
+            if(nodeSize == printTraverser)
                 return 0;
-            node* traverse = nodePointer;
-            std::cout << traverse->Value << "\n";
+                
+            node* traverser = nodePointer;
+            if(printTraverser == m_count)
+                printTraverser=0;
+                return traverser->Value;
             
-            counterSet++;
-            nodeTraverserPrint(traverse->Nextadd,m_count);
+            printTraverser++;
+            nodeTraverserPrint(traverser->Nextadd,m_count);
         }
 
         int size() const
         {
-            return counter;
+            return nodeSize;
         }
 
         bool reserve(int&& size)
         {
             return true;
         }
-
+            /* Add function to create node form scratch
+            */
         bool add(const T& V)
         {
-            first = (struct node*)malloc(1*sizeof(struct node));
-            if(counter == 0)
-                startNode = first;
+                // Asign new memory in the buffer
+            node* createdNode = (struct node*)malloc(1*sizeof(struct node));
 
-            first->Value = V;
-            first->Nextadd = nodeTraverser(startNode,counter);
-            counter++;
-            currentNode = first;
-            std::cout << "my Address is : " << first << " | counter : " << counter << "\n";
-            std::cout << "value : " << first->Value << " | nextaddress : " << first->Nextadd << "\n";
+                // First Node initilization
+            if(nodeSize == 0)
+                startNode = createdNode;
+
+                // Assign values to the new node created
+            createdNode->Value = V;
+            createdNode->Nextadd = nodeTraverser(startNode,counter);
+
+                // increment node size
+            nodeSize++;
+            
+            currentNode = createdNode;
+
             return true;
         }
 
@@ -92,7 +105,7 @@ int main()
     newlist.add(45);
     newlist.add(46);
     
-    newlist.item(5);
+    std::cout << newlist.item(5);
     // for(int i=0;i<4;i++)
     // {
     //     std::cout << newlist.item(i);
