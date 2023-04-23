@@ -1,55 +1,34 @@
 #include <iostream>
 #include <algorithm>
+typedef struct node 
+{
+    int value;
+    node* nxtptr;
+} node;
 
-namespace ca
-{   
-    template<typename T>
-    struct arraylist
-    {
-        struct linklist
+namespace ca 
+{
+    static int listCounter=0;
+    struct list
+    {    
+         list()
         {
-            T* PreviousPtr;
-            T Value;
-            T* NextPtr;
-        };
+            ++listCounter; 
+        }
+         auto counterfunc() -> int
+        {
+            return listCounter;
+        }
         
-        mutable int counter;
-        int capicity() const
-        {
-            return max_size;
-        }
-        bool reserve(int&& size)
-        {
-            if(max_size < size)
-                T newlist[size] = new t[size];
-                return true;
-            else 
-                return false;
-        }
-        T array[max_size];
-
-        bool add(const T& V)
-        {
-            pointer++;
-            arraylist[pointer] = V;
-            return true;
-        }
-        T item(int const& index){
-            if(index <= max_size AND index > 0)
-                return arraylist[index];
-            else
-                throw "error";
-        }
-
     };
+
 }
 
-int main() 
+int main()
 {
-    ca::arraylist<int> newlist;
-    newlist.add(45);
-    newlist.add(43);
-    newlist.add(41);
-    newlist.add(42);
-    std::cout << newlist.item(0);
+    std::cout << ca::listCounter;
+    ca::list X;
+    ca::list y;
+    ca::list Z;
+    std::cout << Z.counterfunc();
 }

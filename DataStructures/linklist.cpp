@@ -3,6 +3,7 @@
 
 namespace ca
 {   
+    static size_t counter=0,counterSet=0;
     template<typename T>
     struct linklist
     {
@@ -12,15 +13,17 @@ namespace ca
                 T Value;
                 node* Nextadd;
             } node;
-
-        
-            mutable int traverserCounter=0, counterSet=0;
-            static size_t counter;
+            
             int nodeSize=0;
             node* startNode;
             node* currentNode=0;
 
         public:
+            linklist()
+            {
+                counter++;
+            }
+            
             node* nodeTraverser(node* nodePointer,int m_counter)
             {
                 node*m_traverse = nodePointer;

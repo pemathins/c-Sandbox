@@ -33,7 +33,6 @@
         "tuple": "cpp",
         "type_traits": "cpp",
         "utility": "cpp",
-        "fstream": "cpp",
         "initializer_list": "cpp",
         "iosfwd": "cpp",
         "iostream": "cpp",
@@ -44,24 +43,7 @@
         "ostream": "cpp",
         "stdexcept": "cpp",
         "streambuf": "cpp",
-        "cinttypes": "cpp",
-        "typeinfo": "cpp",
-        "variant": "cpp",
-        "cstring": "cpp",
-        "ctime": "cpp",
-        "condition_variable": "cpp",
-        "forward_list": "cpp",
-        "list": "cpp",
-        "buffer": "cpp",
-        "executor": "cpp",
-        "io_context": "cpp",
-        "netfwd": "cpp",
-        "ratio": "cpp",
-        "socket": "cpp",
-        "future": "cpp",
-        "mutex": "cpp",
-        "semaphore": "cpp",
-        "stop_token": "cpp",
-        "thread": "cpp"
-    }
+        "typeinfo": "cpp"
+    },
+    "cmake.sourceDirectory": "${workspaceFolder}/Helloproject"
 }
