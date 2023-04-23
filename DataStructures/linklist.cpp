@@ -7,22 +7,26 @@ namespace ca
     struct linklist
     {
         private:
-            struct node
+            typedef struct node
             {
                 T Value;
                 node* Nextadd;
-            };
+            } node;
 
         public:
-            mutable int counter=0, traverserCounter=0, counterSet=0;
-            int nodeSize=0;
-            node* startNode;
+            mutable int traverserCounter=0, counterSet=0;
+            int* counter;
+            int* nodeSize=0;
+            node* startNode=0;
             node* currentNode = NULL;
 
-            node* nodeTraverser(node* nodePointer,int m_counter)
+            if(startNode==0)
+                counter = (int*)malloc(sizeof(int));
+
+            node* nodeTraverser(node* nodePointer,int* m_counter)
             {
                 node*m_traverse = nodePointer;
-                if(nodeSize == 0)
+                if(*nodeSize == 0)
                     counterSet=0;
                     return 0;
 
@@ -34,22 +38,22 @@ namespace ca
                 nodeTraverser(m_traverse->Nextadd,counterSet);
             }
 
-            T nodeTraverserPrint(node* nodePointer,const int& m_count,int printTraverser)
+            T nodeTraverserPrint(node* nodePointer,const int* m_count,int* printTraverser)
             {
-                if(nodeSize==printTraverser)
+                if(*nodeSize==*printTraverser)
                     return 0;
                     
                 node* traverser = nodePointer;
 
                 std::cout << "m_count == "<< m_count << " PrintTrav == " << printTraverser;
 
-                if(m_count==printTraverser){
-                    printTraverser=0;
+                if(*m_count==printTraverser){
+                    *printTraverser=0;
                     return traverser->Value;
                 }
 
-                printTraverser++;
-                nodeTraverserPrint(traverser->Nextadd,m_count,printTraverser);
+                (*counter)++;
+                nodeTraverserPrint(traverser->Nextadd,m_count,counter);
             }
 
             int size() const
@@ -66,7 +70,7 @@ namespace ca
             bool add(const T& V)
             {
                     // Asign new memory in the buffer
-                node* createdNode = (struct node*)malloc(1*sizeof(struct node));
+                node* createdNode = (node*)malloc(1*sizeof(node));
 
                     // First Node initilization
                 if(nodeSize == 0)
@@ -88,7 +92,8 @@ namespace ca
             {
                 // node* current = nodeTraverser(startNode,index);
                 int x,printTraverser=0;
-                return nodeTraverserPrint(startNode,index,printTraverser);
+                *counter=0;
+                return nodeTraverserPrint(startNode,index,counter);
             }
 
             ~linklist()
