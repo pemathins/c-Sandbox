@@ -48,20 +48,40 @@ int main(int argc, char const* argv[])
 		exit(EXIT_FAILURE);
 	}
 	if ((new_socket
-		= accept(server_fd, (struct sockaddr*)&address,
-				(socklen_t*)&addrlen))
+		= accept(server_fd, (struct sockaddr*)&address,(socklen_t*)&addrlen))
 		< 0) {
 		perror("accept");
 		exit(EXIT_FAILURE);
 	}
 	valread = read(new_socket, buffer, 1024);
-	printf("%s\n", buffer);
-	send(new_socket, hello, strlen(hello), 0);
-	printf("Hello message sent\n");
+
+ 
+    int len = strlen(buffer)+1;
+    char* str = malloc(len*sizeof(char));
+    strncpy(str,buffer,sizeof(buffer));
+    printf("%s\nname : %s\n",str,buffer);
+    char rev[strlen(str)];
+    for(int i =strlen(str)-1,x=0;i>0,x<strlen(str);i--,x++)
+    {
+        rev[x] =str[i];
+        printf("%c\n",str[i]);
+    }
+    printf("reverser : %s\n",rev);
+
+	// send respond
+	char notpalandromic[] = "String is Not palandromic.\0";
+	char isPalandromic[] = "String is palandromic.\0";
+    if(palandromic(buffer,rev)==0)
+		send(new_socket, isPalandromic, strlen(isPalandromic), 0);
+    else
+		send(new_socket, notpalandromic, strlen(notpalandromic), 0);
 
 	// closing the connected socket
 	close(new_socket);
 	// closing the listening socket
 	shutdown(server_fd, SHUT_RDWR);
+
 	return 0;
 }
+
+
