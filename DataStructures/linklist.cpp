@@ -2,7 +2,7 @@
 #include <algorithm>
 
 namespace ca
-{   
+{
     static size_t counter=0,counterSet=0;
     template<typename T>
     struct linklist
@@ -13,52 +13,52 @@ namespace ca
                 T Value;
                 node* Nextadd;
             } node;
-            
-            int nodeSize=0;
+
+            int indexCounter=0;
             node* startNode;
             node* currentNode=0;
 
         public:
             linklist()
             {
-                counter++;
-            }
-            
-            node* nodeTraverser(node* nodePointer,int m_counter)
-            {
-                node*m_traverse = nodePointer;
-                if(nodeSize == 0)
-                    counterSet=0;
-                    return 0;
 
-                if(m_traverse->Nextadd == 0)
-                    counterSet=0;
-                    return m_traverse;
-
-                counterSet++;
-                nodeTraverser(m_traverse->Nextadd,counterSet);
             }
 
-            T nodeTraverserPrint(node* nodePointer,const int& m_count,int printTraverser)
+            bool nodeTraverser(node* nodePointer,node* currentNode)
             {
-                if(nodeSize==0)
-                    return startNode->Value;
-                    
+                node* m_traverse = nodePointer;
+                if(counter==0)
+                {
+                    m_traverse->Nextadd = 0;
+                    return false;
+				}
+                if(m_traverse->Nextadd==0)
+                {
+                    m_traverse->Nextadd = currentNode;
+				}
+                else
+                    nodeTraverser(m_traverse->Nextadd,currentNode);
+            }
+
+            T nodeTraverserPrint(node* nodePointer,const int& m_count)
+            {
+                if(counter==0)
+                    return nodePointer->Value;
                 node* traverser = nodePointer;
-
-                if(m_count==printTraverser){
-                    printTraverser=0;
-                    return traverser->Value;
-                }
-
-                counter++;
-                nodeTraverserPrint(traverser->Nextadd,m_count,counter);
-
+                while(traverser->Nextadd!=NULL)
+				{
+                    traverser = traverser->Nextadd;
+					if(indexCounter==m_count)
+						break;
+					indexCounter++;
+				}
+				indexCounter=0;
+                return traverser->Value;
             }
 
             int size() const
             {
-                return nodeSize;
+                return counter;
             }
 
             bool reserve(int&& size)
@@ -73,27 +73,27 @@ namespace ca
                 node* createdNode = (node*)malloc(1*sizeof(node));
 
                     // First Node initilization
-                if(nodeSize == 0)
+                if(counter==0)
                     startNode = createdNode;
 
                     // Assign values to the new node created
                 createdNode->Value = V;
-                createdNode->Nextadd = nodeTraverser(startNode,counter);
+                createdNode->Nextadd = 0;
+
+               	nodeTraverser(startNode,createdNode);
 
                     // increment node size
-                nodeSize++;
-                
-                currentNode = createdNode;
 
+                currentNode = createdNode;
+                counter++;
                 return true;
             }
 
             T item(int const& index)
             {
                 // node* current = nodeTraverser(startNode,index);
-                int x,printTraverser=0;
-                counter=0;
-                return nodeTraverserPrint(startNode,index,counter);
+
+                return nodeTraverserPrint(startNode,index);
             }
 
             ~linklist()
@@ -115,11 +115,12 @@ int main()
     newlist.add(44);
     newlist.add(45);
     newlist.add(46);
-    int x = newlist.item(5);
-    std::cout << x;
-    // for(int i=0;i<4;i++)
-    // {
-    //     std::cout << newlist.item(i);
-    // }
-      
+    //int x = newlist.item(5),
+    int y;
+   // std::cout << x;
+    std::cin >> y;
+     for(int i=0;i<y;i++)
+     {
+         std::cout << "\n" << newlist.item(i);
+     }
 }

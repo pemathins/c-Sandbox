@@ -17,9 +17,10 @@ namespace ca
         }
          auto counterfunc() -> int
         {
+			std::cout << sizeof(node);
             return listCounter;
         }
-        
+
     };
 
 }
