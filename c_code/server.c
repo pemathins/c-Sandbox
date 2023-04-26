@@ -21,18 +21,20 @@ int main()
 	char* hello = "Hello from server";
 
 	// Creating socket file descriptor
-	int serverSocket = socket(AF_INET, SOCK_STREAM, 0);
-
-    int setsockopt(serverSocket, IPPROTO_TCP, SO_DEBUG, const void *value_of_option, socklen_t option_length);
+	new_socket = socket(AF_INET, SOCK_STREAM, 0);
 
 	
 	address.sin_family = AF_INET;
 	address.sin_addr.s_addr = INADDR_ANY;
 	address.sin_port = htons(PORT);
 
+
 	bind(server_fd, (struct sockaddr*)&address,sizeof(address));
 	
 	
+	valread = listen(server_fd, 4);
+
+
 	accept(server_fd, (struct sockaddr*)&address,(socklen_t*)&addrlen);
 	
 	read(new_socket, buffer, 1024);
@@ -40,9 +42,9 @@ int main()
  
     int len = strlen(buffer)+1;
     char* str = malloc(len*sizeof(char));
-    strncpy(str,buffer,sizeof(buffer));
+    strncpy(str,buffer,len);
     printf("%s\nname : %s\n",str,buffer);
-    char rev[strlen(str)];
+    char rev[1024];
     for(int i =strlen(str)-1,x=0;i>0,x<strlen(str);i--,x++)
     {
         rev[x] =str[i];
