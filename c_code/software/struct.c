@@ -23,6 +23,8 @@ int main()
 
 	for(int i = 0;i<10;i++)
 	{
+		printf("Size of User struct is : %d \nEnter user datails name,age,ID\n",sizeof(arrUser));
+		scanf("%[^,],%d,%d",name,&arr.age,&arr.ID);
 		arrUser[i].name = (char*)malloc(25*sizeof(char));
 		strcpy(arrUser[i].name,name);
 		arrUser[i].age = arr.age;
