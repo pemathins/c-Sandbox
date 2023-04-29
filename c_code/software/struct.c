@@ -30,7 +30,7 @@ int main()
 	printf("\n");
 	for(int i = 0;i<10;i++)
 	{
-		printf("%d) name: %s ",i,arrUser[i].name);
+		printf("%d) name: %s ",i+1,arrUser[i].name);
 		printf("  Age :%d ",arrUser[i].age);
 		printf("  ID :%u\n",arrUser[i].ID);
 	}
