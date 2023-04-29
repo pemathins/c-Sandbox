@@ -81,3 +81,8 @@ long int LoginChecker(char* user,size_t uSize,char* pass, size_t pSize)
 {
     return 0L;
 }
+
+int main()
+{
+return 0;
+}
