@@ -15,11 +15,6 @@ int main()
 	User arr;
 	User* ptrUserArr = arrUser;
 	char* name = (char*)malloc(25*sizeof(char));
-	printf("Size of User struct is : %d \nEnter user datails name,age,ID\n",sizeof(arrUser));
-	scanf("%[^,],%d,%d",name,&arr.age,&arr.ID);
-	arrUser[5].name = "Pema";
-	arrUser[5].age = 23;
-	arrUser[5].ID = 202222008;
 
 	for(int i = 0;i<10;i++)
 	{
