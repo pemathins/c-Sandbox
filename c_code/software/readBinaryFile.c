@@ -13,32 +13,30 @@ typedef struct User
 
 int main()
 {
-    User pema = {
-        .id=8,
-        .name="pema"
-    },user2;
+    User user;
 
-    FILE* out;
 
-    out = fopen("textbin.bin", "wb");
+    FILE* in;
 
-    if(out==0)
+    in = fopen("textbin.bin", "rb");
+
+    if(in==0)
     {
         printf("File opening Error\n");
         return 1;
     }
 
-    printf("%d",sizeof(pema));
     
-    if(fwrite(&pema,sizeof(User),1,out)==0)
+    if(fread(&user, sizeof(User), 1, in)==0)
     {
-        fclose(out);
+        fclose(in);
         return 2;
     }
-    fclose(out);
-
 
     
+
+    printf("User name: %s, Id: %d",user.name,user.id);
+    fclose(in);
 
     return 0;
 } 
