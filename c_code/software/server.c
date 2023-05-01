@@ -28,7 +28,7 @@ int main(int argc, char* argv[])
 
 	bind(server_fd, (struct sockaddr*)&address,	sizeof(address));
 
-	listen(server_fd, 3);
+	listen(server_fd, 1);
 
 	new_socket = accept(server_fd, (struct sockaddr*)&address, (socklen_t*)&addrlen));
 
