@@ -21,11 +21,11 @@ int main()
 
     in = fopen("text.dat", "r");
 
-    if(fgets(buffer_in, sizeof buffer_in,in)==0)
-    {
-        fclose(in);
-        return 1;
-    }
+        if(fgets(buffer_in, sizeof buffer_in,in)==0)
+        {
+            fclose(in);
+            return 1;
+        }
     fclose(in);
 
     sscanf(buffer_in,"%d,%[^\n]",&user.id,user.name);
