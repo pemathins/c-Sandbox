@@ -8,8 +8,6 @@
 #include "ars.h"
 
 #define HEADER_TCP "Content-Type: text/html; charset=utf-8\r\n\r\n"
-int buFFLen;
-#define HTML_SEND char* bufferLoader(FILE* file) { 	if(file==0) return 1;	fseek(file,0,SEEK_END);	int length = ftell(file);	seek(file, 0, SEEK_SET);char* bufferpage = (char*)malloc(sizeof(char)*(length));	char c;	int i =0;	while((c=fgetc(file))!= EOF)	{		bufferpage[i]=c;		i++; 	}	fclose(file);	printf("%s",bufferpage); buFFLen = strlen(bufferpage);	return bufferpage;}
 
 #define PORT 18000
 
