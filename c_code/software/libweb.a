@@ -1,0 +1,19 @@
+#ifndef WEB_PAGE_HEADER
+#define WEB_PAGE_HEADER
+#include<stdio.h>
+
+// this header is used for MIME format helping
+#define HEADER_W_CONTENT "HTTP/1.1 200 OK\r\nContent-Type: text/html\r\nContent-Length: %d\r\n\r\n%s"
+
+// This function loades the file (client-side) in the buffer to send in via the write function
+char* webPageLoader(FILE*);
+/* Takes a file pointer that pointes to a file descriptor
+** Check for the file ponter if its empty
+** the file object then is checked for the total number of characters in the file
+** this value is used to create a buffer of a particular size in the heap memory (bufferpage)
+** we reset the pointer/cursor in the file disceptor to zero th index
+** So, as to again iterate of the file character and insert it till EOF (End of File) 
+** we then return the address of the buffer (bufferpage);
+*/
+
+#endif

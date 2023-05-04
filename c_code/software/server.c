@@ -5,16 +5,13 @@
 #include <string.h>
 #include <sys/socket.h>
 #include <unistd.h>
-#include "ars.h"
-
-#define HEADER_TCP "Content-Type: text/html; charset=utf-8\r\n\r\n"
+#include "libweb.a"
 
 #define PORT 18000
-
-
+#define SA struct sockaddr*
 #define BUFFER_MAX_SIZE_IN 4096
 
-char* bufferLoader(FILE*);
+char* webPageLoader(FILE*);
 
 int main(int argc, char* argv[])
 {
@@ -22,72 +19,68 @@ int main(int argc, char* argv[])
 	struct sockaddr_in address;
 	int opt = 1;
 	int addrlen = sizeof(address);
-	char buffer[BUFFER_MAX_SIZE_IN] = { 0 };
-	char buffer_test[BUFFER_MAX_SIZE_IN];
-	char user_Name[] = "<html><head><title>Login</title></head><body style=\"background-color: aquamarine;\"><h2>Login Form</h2>   <form id=\"login-form\"><div><label for=\"username\">Username:</label><input type=\"text\" id=\"username\" name=\"username\" required><label for=\"password\">Password:</label><input type=\"password\" id=""password""name=\"password\"required></div><div><input type=\"submit\" value=\"Login\"></div></form><div id=\"message\"></div></body></html>";
+	char buffer_in_get[BUFFER_MAX_SIZE_IN] = { 0 };
+	char buffer_final[BUFFER_MAX_SIZE_IN];
 
-	sprintf(buffer_test,"HTTP/1.1 200 OK\r\nContent-Type: text/html\r\nContent-Length: %d\r\n\r\n%s",strlen(user_Name),user_Name);
-	printf("\n%s",buffer_test);
+	
 	//load the web page
 	FILE* file = fopen("login.html", "r");
 
-	char* bufferpage = bufferLoader(file);
-	// 
-	// fgets(pagebuffer, sizeof pagebuffer,file)
+	// returns a heap allocated buffer so please free it the escape memory leaks
+	char* bufferpage = webPageLoader(file);
 
-	// while(!feof(file))
-	// {==0)
-	// 	sscanf(pagebuffer,"\n",);
-	// 	fgets(pagebuffer, sizeof pagebuffer,file);
-	// }
-
-	// fclose(file);;
-
-	char* newBuffer = (char*)malloc(sizeof(char)*(2*BUFFER_MAX_SIZE_IN));
-
-	// strcat(buffer_test,user_Name,);
-
-	// Creating socket file descriptor
+	sprintf(buffer_final,HEADER_W_CONTENT,strlen(bufferpage),bufferpage);
+	printf("\n%s",buffer_final);
+	
 	server_fd = socket(AF_INET, SOCK_STREAM, 0);
 ;
 	address.sin_family = AF_INET;
 	address.sin_addr.s_addr = INADDR_ANY;
 	address.sin_port = htons(PORT);
 
-	bind(server_fd, (struct sockaddr*)&address,	sizeof(address));
+	bind(server_fd, (SA)&address, sizeof(address));
 
 	listen(server_fd, 1);
+	for(;;)
+	{
 
-	new_socket = accept(server_fd, NULL, NULL);
+		memset(buffer_in_get,0,BUFFER_MAX_SIZE_IN);
+		
+		new_socket = accept(server_fd, NULL, NULL);
 
-	valread = read(new_socket, buffer, BUFFER_MAX_SIZE_IN);
-	printf("\n%s",buffer_test);
-	valwrite = write(new_socket, buffer_test,strlen(buffer_test));
+		// get the request from the client 
+		valread = read(new_socket, buffer_in_get, BUFFER_MAX_SIZE_IN);
 
-	close(new_socket);
+		fprintf(stdout,"\n%s\n",buffer_in_get);
 
+		// Send the web page to the user 
+		valwrite = write(new_socket, buffer_final,strlen(buffer_final));
+
+		close(new_socket);
+	}
 	shutdown(server_fd, SHUT_RDWR);
+
 	free(bufferpage);
 	return 0;
 }
 
-char* bufferLoader(FILE* file)
+char* webPageLoader(FILE* file)
 {
 	if(file==0) return 1;
 	fseek(file,0,SEEK_END);
 	int length = ftell(file);
 	fseek(file, 0, SEEK_SET);
 
-	char* bufferpage = (char*)malloc(sizeof(char)*(length));
+	char* buffer = (char*)malloc(sizeof(char)*(length));
 
 	char c;
 	int i =0;
 	while((c=fgetc(file))!= EOF)
 	{
-		bufferpage[i]=c;
+		buffer[i]=c;
 		i++; 
 	}
 	fclose(file);
-	printf("%s",bufferpage);
-	return bufferpage;
+	printf("%s",buffer);
+	return buffer;
 }
