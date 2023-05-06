@@ -33,7 +33,7 @@ int main()
     // end = clock();
     // cpu_time_used = ((double) (end - start)) / CLOCKS_PER_SEC;
     // printf("\nTime Taken to read file : %0.8f",cpu_time_used);
-    FILE* file = fopen("./Login_Page/fonts/font-awesome-4.7.0/css/font-awesome.min.css","r");
+    FILE* file = fopen("./Login_Page/vendor/bootstrap/css/bootstrap.min.css","rb");
 
     if(file==0) return 1;
 	fseek(file,0,SEEK_END);
