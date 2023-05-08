@@ -19,11 +19,9 @@
 
 
 char* webPageLoaderToBuffer(FILE*);
-
 char* requestTypeChecker(char*);
-
 int fileLoader(char*,char[]);
-
+void clientMessageCheck(char*,const char*);
 void freeMemory();
 
 int main(int argc, char* argv[])
@@ -47,23 +45,24 @@ int main(int argc, char* argv[])
 
 	bind(server_fd, (SA)&address, sizeof(address));
 
-	listen(server_fd, 1);
+	listen(server_fd, 5);
 	for(int i=0;;i++)
 	{
 
 		char* sendfile,fileDir[100]="./Login_Page";
 		memset(buffer_in_get,0,BUFFER_MAX_SIZE_IN);
-
 		char home[15] = HOMEPAGE;
+
+		// Connection made on new_socket with the accept finction
 		new_socket = accept(server_fd,NULL, NULL);
 
 		// get the request from the client 
 		valread = read(new_socket, buffer_in_get, BUFFER_MAX_SIZE_IN);
 
-		fprintf(stdout,"Buffer_IN_GET after free :\n%s\n\ni count : %d\n\n",buffer_in_get,i);
-
-		sscanf(buffer_in_get,"%*c%*c%*c%*c%14[^ ]",home+12);
-		printf("\nhome checker : |%s\n", home);	
+		// Check for client message 
+		if(buffer_in_get!=0)
+			clientMessageCheck(buffer_in_get,home);
+	
 		
 		// Send the web page to the client Browser
 		if(strcmp(home,HOMEPAGE)==0){
@@ -93,6 +92,16 @@ int main(int argc, char* argv[])
 	freeMemory(1,buffer_final);
 	return 0;
 }
+
+void clientMessageCheck(char* buffer_in,const char* header)
+{
+	const char* home=header;
+	fprintf(stdout,"Buffer_IN_GET after Accept in new_socket :\n%s\n\n",buffer_in);
+
+	sscanf(buffer_in,"%*c%*c%*c%*c%14[^ ]",home+12);
+	printf("\nhome checker : |%s\n", home);
+}
+
 //This function takes two paramaters char*,const char*. returns values PERROR_FL(-1) in error, 0 in successfull loading of file
 int  fileLoader(char* Homepage, char buffer_final[])
 {

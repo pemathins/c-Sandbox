@@ -1,23 +1,29 @@
 <html>
-  <head>
-    <title>Login</title>
-  </head>
-  <body style="background-color: aquamarine;">
-    <h2>Login Form</h2>
-    <form id="login-form">
-      <div>
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username" required>
-      </div>
-      <div>
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required>
-      </div>
-      <div>
-        <input type="submit" value="Login">
-      </div>
-    </form>
-    <div id="message"></div>
+  <header>
+    <title>LoginScript_JS</title>
+  </header>
+<body>
+  <script>
+    function submitLoginForm(event) {
+      event.preventDefault(); // Prevent the form from submitting normally
     
-  </body>
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+    
+      // TODO: Perform login request with username and password
+    
+      // Clear the password field for security
+      document.getElementById('password').value = '';
+    }
+  </script>
+  <form id="login-form" onsubmit="submitLoginForm(event)">
+    <label for="username">Username:</label>
+    <input type="text" id="username" name="username" required>
+
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" required>
+
+    <input type="submit" value="Login">
+  </form>
+</body>
 </html>
