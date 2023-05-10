@@ -1,0 +1,1 @@
+char* webPageLoader(FILE* file);

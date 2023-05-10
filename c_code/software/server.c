@@ -5,7 +5,7 @@
 #include <string.h>
 #include <sys/socket.h>
 #include <unistd.h>
-#include "libweb.a"
+#include "include/web.h"
 
 #define PORT 6969
 #define SA struct sockaddr*
@@ -16,6 +16,7 @@
 #define HOMEPAGE "./Login_Page/ "
 #define IP_ADDRESS "192.168.0.1"
 #define PERROR_FL -1
+#define HEADER_W_CONTENT "Buffer_IN_GET after Accept in new_socket :\n%s\n\n"
 
 
 char* webPageLoaderToBuffer(FILE*);
@@ -96,7 +97,7 @@ int main(int argc, char* argv[])
 void clientMessageCheck(char* buffer_in,const char* header)
 {
 	const char* home=header;
-	fprintf(stdout,"Buffer_IN_GET after Accept in new_socket :\n%s\n\n",buffer_in);
+	fprintf(stdout,HEADER_W_CONTENT,buffer_in);
 
 	sscanf(buffer_in,"%*c%*c%*c%*c%14[^ ]",home+12);
 	printf("\nhome checker : |%s\n", home);
@@ -121,27 +122,27 @@ int  fileLoader(char* Homepage, char buffer_final[])
 
 
 // This function takes the parameters FILE* to the file and returns char* upon successful loading to the buffer
-char* webPageLoaderToBuffer(FILE* file)
-{
-	if(file==0) return 1;
-	fseek(file,0,SEEK_END);
-	int length = ftell(file);
-	fseek(file, 0, SEEK_SET);
+// char* webPageLoaderToBuffer(FILE* file)
+// {
+// 	if(file==0) return 1;
+// 	fseek(file,0,SEEK_END);
+// 	int length = ftell(file);
+// 	fseek(file, 0, SEEK_SET);
 
-	char* buffer = (char*)malloc(sizeof(char)*(length));
+// 	char* buffer = (char*)malloc(sizeof(char)*(length));
 
-	char c;
-	int i =0;
-	while((c=fgetc(file))!= EOF)
-	{
-		buffer[i]=c;
-		i++; 
-	}
-	fclose(file);
-	if(i == strlen(buffer))
-		printf("\nfile to buffer [========================================]100\%\n\n%s\n",buffer);
-	return buffer;
-}
+// 	char c;
+// 	int i =0;
+// 	while((c=fgetc(file))!= EOF)
+// 	{
+// 		buffer[i]=c;
+// 		i++; 
+// 	}
+// 	fclose(file);
+// 	if(i == strlen(buffer))
+// 		printf("\nfile to buffer [========================================]100\%\n\n%s\n",buffer);
+// 	return buffer;
+// }
 
 
 
@@ -173,8 +174,6 @@ void freeMemory(int num, ...) {
     for (int i = 0; i < num; i++) {
         char* n = va_arg(args, char*);
 		free(n);
-        printf("%i %p  is free.",i, n);
     }
     va_end(args);
-    printf("\n");
 }
