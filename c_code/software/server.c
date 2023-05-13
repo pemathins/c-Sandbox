@@ -18,7 +18,6 @@
 #define PERROR_FL -1
 #define HEADER_W_CONTENT "Buffer_IN_GET after Accept in new_socket :\n%s\n\n"
 
-
 char* webPageLoaderToBuffer(FILE*);
 char* requestTypeChecker(char*);
 int fileLoader(char*,char[]);
