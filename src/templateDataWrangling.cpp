@@ -20,7 +20,7 @@ typedef struct User
 
 int main()
 {
-    User temp;
+    
     FILE* data = fopen("testSet.csv", "r");
     if(data ==0)
     {
@@ -28,6 +28,10 @@ int main()
         return 1;
     }
     std::vector<User> user;
-    fscanf(data,"%d,%s,%s,%s,%s,%s",temp.id,temp.user_name_first,temp.user_name_last,temp.user_email,temp.user_gender,temp.user_dob);
-    user.emplace_back(temp);
+    while(feof(data)!=0){
+        User temp;
+        fscanf(data,"%d,%[^,],%[^,],%[^,],%[^,],%[^,]",temp.id,temp.user_name_first,temp.user_name_last,temp.user_email,temp.user_gender,temp.user_dob);
+        user.insert(temp);
+    }
+    std::cout << user.data;
 }
