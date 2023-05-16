@@ -30,8 +30,9 @@ int main()
     std::vector<User> user;
     while(feof(data)!=0){
         User temp;
-        fscanf(data,"%d,%[^,],%[^,],%[^,],%[^,],%[^,]",temp.id,temp.user_name_first,temp.user_name_last,temp.user_email,temp.user_gender,temp.user_dob);
-        user.insert(temp);
+        fscanf(data,"%d,%[^,],%[^,],%[^,],%[^,],%[^\n]",temp.id,temp.user_name_first,temp.user_name_last,temp.user_email,temp.user_gender,temp.user_dob);
+        user.emplace(user.begin(),user.end(),[&](User& user){ return user;});
     }
-    std::cout << user.data;
+    for(User u : user)
+        std::cout << u.id;
 }
