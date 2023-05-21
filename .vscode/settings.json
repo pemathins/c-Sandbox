@@ -43,7 +43,10 @@
         "ostream": "cpp",
         "stdexcept": "cpp",
         "streambuf": "cpp",
-        "typeinfo": "cpp"
+        "typeinfo": "cpp",
+        "cinttypes": "cpp",
+        "fstream": "cpp",
+        "variant": "cpp"
     },
     "cmake.sourceDirectory": "${workspaceFolder}/Helloproject"
 }
