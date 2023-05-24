@@ -49,6 +49,7 @@ int main(int argc,char* argv[])
         
         
     }
+    if(attempt!=0)
     printf("Invalid Login\n");
     return 0;
 
