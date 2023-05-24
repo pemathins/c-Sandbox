@@ -70,7 +70,7 @@ int *sort(const char *buffer, const char *bufferMsg)
             }
         }
     }
-    bufferMsg = array; mm,
+    bufferMsg = array;
 }
 
 
