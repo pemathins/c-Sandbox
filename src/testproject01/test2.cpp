@@ -42,18 +42,45 @@ int FileLoader(const char* path,std::vector<User>& data)
 {
     FILE* file= fopen(path,"r");
     User temp;
+    char buffer[567];
+    memset(buffer,0,567);
+    fscanf(file,"%[^\n]",buffer);
+
+    int id;
+    char* first_name = (char*)malloc(sizeof(char)*50);;
+    char* last_name = (char*)malloc(sizeof(char)*50);
+    char* email = (char*)malloc(sizeof(char)*50);
+    char* gender = (char*)malloc(sizeof(char)*9);
+    char* dob = (char*)malloc(sizeof(char)*15);
+
     while(!feof(file))
     {
-        int id;
-        char* first_name;
-        char* last_name;
-        char* email;
-        char* gender;
-        char* dob;
+        
+        char newline  = fgetc(file);
+        fscanf(file,"%d,%[^,],%[^,],%[^,],%[^,],%[^\n]",&id,first_name,last_name,email,gender,dob);
+        temp.Id = id;
+        temp.First_name = first_name;
+        temp.Last_name = last_name;
+        temp.Email = email;
+        temp.Gender = gender;
+        temp.Dob = dob;
 
-        fscanf(file,"%d,%[^,],%[^,],%[^,],%[^,],%[^,]",id,first_name,last_name,email,gender);
-        std::cout << "Id : " << id << "Fname : " << first_name << "Lname : " << last_name << "Email : " << email << "Gender : " << gender << "\n";
+        data.emplace(data.begin(),data.end(),[] (User temp) -> User {
+            User temp1(temp.Id,temp.First_name,temp.Last_name,temp.Email,temp.Gender,temp.Dob);
+            return temp1;
+        }(temp));
+        
     }
+    printf("Line no : %d\n",ftell(file));
+    
+    for(User x : data)
+        printf("id : %d, %s, %s, %s, %s, %s\n",x.Id,x.First_name,x.Last_name,x.Email,x.Gender,x.Dob);
+
+    free(first_name);
+    free(last_name);
+    free(email);
+    free(gender);
+    free(dob);
     fclose(file);
     return 0;
 }
