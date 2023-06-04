@@ -64,17 +64,14 @@ int FileLoader(const char* path,std::vector<User>& data)
         temp.Email = email;
         temp.Gender = gender;
         temp.Dob = dob;
-
-        data.emplace(data.begin(),data.end(),[] (User temp) -> User {
-            User temp1(temp.Id,temp.First_name,temp.Last_name,temp.Email,temp.Gender,temp.Dob);
-            return temp1;
-        }(temp));
+        printf("id : %d, %s, %s, %s, %s, %s\n",temp.Id,temp.First_name,temp.Last_name,temp.Email,temp.Gender,temp.Dob);
+        data.emplace_back(temp.Id,temp.First_name,temp.Last_name,temp.Email,temp.Gender,temp.Dob);
         
     }
     printf("Line no : %d\n",ftell(file));
     
-    for(User x : data)
-        printf("id : %d, %s, %s, %s, %s, %s\n",x.Id,x.First_name,x.Last_name,x.Email,x.Gender,x.Dob);
+    // for(User x : data)
+    //     printf("id : %d, %s, %s, %s, %s, %s\n",x.Id,x.First_name,x.Last_name,x.Email,x.Gender,x.Dob);
 
     free(first_name);
     free(last_name);
