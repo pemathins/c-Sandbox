@@ -74,8 +74,6 @@ int FileLoader(const char* path,std::vector<User>& data)
         std::memcpy(temp.Email, email,50);
         std::memcpy(temp.Gender, gender,15);
         std::memcpy(temp.Dob, dob,15);
-        // printf("id : %d, %s, %s, %s, %s, %s\n",temp.Id,temp.First_name,temp.Last_name,temp.Email,temp.Gender,temp.Dob);
-        // {id,first_name,last_name,email,gender,dob}
         data.push_back(temp);
         if(count>1001)
         {
@@ -94,13 +92,5 @@ int FileLoader(const char* path,std::vector<User>& data)
         std::cout << x.Id << " " << x.First_name << " "  << x.Last_name << " "  << x.Email << " "  << x.Gender << " "  << x.Dob << "\n";
     }
     
-    
-    
-    // free(first_name);
-    // free(last_name);
-    // free(email);
-    // free(gender);
-    // free(dob);
-    // fclose(file);
     return 0;
 }
