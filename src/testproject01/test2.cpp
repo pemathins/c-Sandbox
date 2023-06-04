@@ -1,4 +1,7 @@
 #include <iostream>
+#include <cstdio>
+#include <fstream>
+#include <sstream>
 #include <cstring>
 #include <vector>
 #include <string>
@@ -8,20 +11,20 @@
 typedef struct User
 {
     int Id;
-    char* First_name;
-    char* Last_name;
-    char* Email;
-    char* Gender;
-    char* Dob;
+    char First_name[20];
+    char Last_name[15];
+    char Email[19];
+    char Gender[8];
+    char Dob[10];
 
     User()
     {
     }
 
-    User(int id,char* first_name,char* last_name,char* email,char* gender,char* dob)
-    :Id(id), First_name(first_name), Last_name(last_name), Email(email), Gender(gender), Dob(dob)
-    {
-    }
+    // User(int id,char first_name[],char last_name[],char email[],char gender[],char dob[])
+    // :Id(id), First_name(first_name), Last_name(last_name), Email(email), Gender(gender), Dob(dob)
+    // {
+    // }
     
 }User;
 
@@ -33,19 +36,18 @@ int main()
 {
     std::vector<User> dataVector;
     dataVector.reserve(1500);
-    FileLoader("../testSet.csv",dataVector);
+    FileLoader("testSet.csv",dataVector);
     int value=0,capicity=5;
     
 }
 
 int FileLoader(const char* path,std::vector<User>& data)
 {
-    FILE* file= fopen(path,"r");
+    FILE* file= fopen("/home/thinley/Documents/cpp-programs/c-Sandbox/src/testproject01/testSet.csv","r");
     User temp;
-    char buffer[567];
-    memset(buffer,0,567);
-    fscanf(file,"%[^\n]",buffer);
-
+    char buffer[5670];
+    memset(buffer,0,5670);
+    int counter =0;
     int id;
     char* first_name = (char*)malloc(sizeof(char)*50);;
     char* last_name = (char*)malloc(sizeof(char)*50);
@@ -55,23 +57,25 @@ int FileLoader(const char* path,std::vector<User>& data)
 
     while(!feof(file))
     {
-        
-        char newline  = fgetc(file);
-        fscanf(file,"%d,%[^,],%[^,],%[^,],%[^,],%[^\n]",&id,first_name,last_name,email,gender,dob);
-        temp.Id = id;
-        temp.First_name = first_name;
-        temp.Last_name = last_name;
-        temp.Email = email;
-        temp.Gender = gender;
-        temp.Dob = dob;
-        printf("id : %d, %s, %s, %s, %s, %s\n",temp.Id,temp.First_name,temp.Last_name,temp.Email,temp.Gender,temp.Dob);
-        data.emplace_back(temp.Id,temp.First_name,temp.Last_name,temp.Email,temp.Gender,temp.Dob);
-        
+        User temp;
+        std::fscanf(file,"%d,%[^,],%[^,],%[^,],%[^,],%[^\n]",temp.Id,temp.First_name,temp.Last_name,temp.Email,temp.Gender,temp.Dob);
+        // temp.Id, id;
+        // std::memcpy(temp.First_name, first_name,20);
+        // std::memcpy(temp.Last_name, last_name,15);
+        // std::memcpy(temp.Email, email,19);
+        // std::memcpy(temp.Gender, gender,8);
+        // std::memcpy(temp.Dob, dob,10);
+        std::printf("id : %d, %s, %s, %s, %s, %s\n",temp.Id,temp.First_name,temp.Last_name,temp.Email,temp.Gender,temp.Dob);
+        //{id,first_name,last_name,email,gender,dob}
+        data.push_back(temp);
+        if(counter<1001)
+            break;
+        counter++;
     }
-    printf("Line no : %d\n",ftell(file));
+    std::printf("Line no : %d\n",ftell(file));
     
-    // for(User x : data)
-    //     printf("id : %d, %s, %s, %s, %s, %s\n",x.Id,x.First_name,x.Last_name,x.Email,x.Gender,x.Dob);
+    for(User x : data)
+        printf("id : %d, %s, %s, %s, %s, %s\n",x.Id,x.First_name,x.Last_name,x.Email,x.Gender,x.Dob);
 
     free(first_name);
     free(last_name);
