@@ -1,10 +1,7 @@
 #include <iostream>
 #include <cstdio>
-#include <fstream>
-#include <sstream>
 #include <cstring>
 #include <vector>
-#include <string>
 
 #define MAXVAL 4500
 
