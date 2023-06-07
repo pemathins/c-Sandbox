@@ -2,36 +2,34 @@
 #include<stdio.h>
 #include<string.h>  
 
+#define charptr char*
 int main()
 {
-    char splitAt = ' ';
-    int count =0;
-    char* block;    
-     
+    char splitAt = 32;
+    size_t count =0;
+    charptr block[10];    
+    charptr rx;
 
     void* temp = malloc(5*sizeof(int));
 
     char* address = (char*)temp;
-
-    const char* name = "Pema Thinley Lepcha";
+    rx = address;
+    const char* name = "34 35 56 23 67 89";
 
     memcpy(temp,name,strlen(name));
-    for(size_t i=0;i<5*sizeof(int);i++)
+    for(size_t i=0;i<strlen(name);i++)
     {
         char* r = (char*)(temp+i);
         char x = (char)*r;
-        if(x==splitAt)
+        if(x==splitAt || i==strlen(name)-1)
         {
-            memcpy(block,r,count);
-
+            memcpy(block,rx,count);
             count = 0;
-            address = (char*)(temp+i+1);
+            rx = (char*)(temp+i+1);
 
         }
         printf("Bock : %s\n",block);
         count++;
-
-
 
         printf("%c",x); 
     }
