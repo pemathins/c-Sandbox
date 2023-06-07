@@ -29,6 +29,7 @@ int main()
 
         }
         printf("Bock : %s\n",block);
+        memset(block,0,10);
         count++;
 
         printf("%c",x); 
