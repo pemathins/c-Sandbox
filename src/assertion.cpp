@@ -3,6 +3,7 @@
 
 struct Add {
 constexpr int add(int a, int b) {
+    
     return a+b;
 }
 
