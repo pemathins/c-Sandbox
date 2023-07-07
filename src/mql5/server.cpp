@@ -5,6 +5,7 @@
 #include <string>
 #include <sys/socket.h>
 #include <unistd.h>
+#include <arpa/inet.h>
 #include <iostream>
 
 #define PORT 8466
@@ -25,29 +26,34 @@ typedef struct quote
 class MqlConnection {
 	char host[10];
 	public:
+
+	int server_fd, newSocket;
+	struct sockaddr_in address;
 	MqlConnection(std::string p_host, int p_port)
-	{
-		strcpy(host,p_host);
+	{	
+		int valread, valwrite;
+		
+		int opt = 0;
+		int addrlen = sizeof(address);
+		char buffer[BUFFERMAX];
+		char bufferMessage[BUFFERMAX];
+
+		server_fd = socket(AF_INET, SOCK_STREAM, opt);
+
+		address.sin_family = AF_INET;
+		address.sin_addr.s_addr = INADDR_ANY;
+		address.sin_port = htons(PORT);
+
+		
 		if(strcmp(host,"localhost")==0)
 		{
-			host = INADDR_ANY;
+			inet_pton(AF_INET, host, &(address.sin_addr.s_addr));
 			
 		}
 	}
 
-	int server_fd, newSocket;	
-	int valread, valwrite;
-	struct sockaddr_in address;
-	int opt = 0;
-	int addrlen = sizeof(address);
-	char buffer[BUFFERMAX];
-	char bufferMessage[BUFFERMAX];
 
-	server_fd = socket(AF_INET, SOCK_STREAM, opt);
-
-	address.sin_family = AF_INET;
-	address.sin_addr.s_addr = INADDR_ANY;
-	address.sin_port = htons(PORT);
+	
 
 	bool socketConnected()
 	{
